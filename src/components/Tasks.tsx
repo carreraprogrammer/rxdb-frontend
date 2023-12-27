@@ -62,13 +62,13 @@ const Tasks = () => {
     }
   };
 
-  // Marcar una tarea como completada
   const toggleCompleteTask = async (task) => {
-    const taskToUpdate = await db.todos.findOne(task.id).exec();
-    if (taskToUpdate) {
-      await taskToUpdate.update({
-        $set: { isCompleted: !task.isCompleted },
-        updatedAt: new Date().toISOString()
+    const taskToToggle = await db.todos.findOne(task.id).exec();
+    if (taskToToggle) {
+      await taskToToggle.update({
+        $set: {
+          isCompleted: !taskToToggle.isCompleted
+        }
       });
       loadTasks();
     }

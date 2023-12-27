@@ -93,15 +93,6 @@ const pushQueryBuilder = (rows) => {
 
 const syncURL = 'http://localhost:3000/graphql';
 
-const isServerAvailable = async (url) => {
-  try {
-    const response = await fetch(url, { method: 'HEAD' });
-    return response.ok;
-  } catch (error) {
-    return false;
-  }
-};
-
 export class GraphQLReplicator {
   private db;
   private replicationState;
@@ -116,12 +107,7 @@ export class GraphQLReplicator {
           this.replicationState.cancel();
       }
 
-      // Solo configura la replicación si el servidor está disponible
-      if (await isServerAvailable(syncURL)) {
-        this.replicationState = this.setupGraphQLReplication();
-      } else {
-        console.error('Server is not available. Replication will not be started.');
-      }
+      this.replicationState = this.setupGraphQLReplication();
   }
 
   private setupGraphQLReplication() {
