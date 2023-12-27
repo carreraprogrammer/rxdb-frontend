@@ -227,7 +227,7 @@ La operación de Push en RXDB envía cambios locales al backend de Rails. La est
 };
 ```
 
-Cada row contiene dos llaves assumedMasterState (el estado anterior del todo) y newDocumentState (el estado actualizado del todo). El backend de Rails utiliza esta información para determinar si hay un conflicto (por ejemplo, si el todo ha sido modificado simultáneamente en otra instancia) y, en base a esto, actualiza la base de datos.
+Cada row contiene un objeto con dos llaves assumedMasterState (el estado anterior del todo) y newDocumentState (el estado actualizado del todo). El backend de Rails utiliza esta información para determinar si hay un conflicto (por ejemplo, si el todo ha sido modificado simultáneamente en otra instancia) y, en base a esto, actualiza la base de datos.
 
 
 ```module Mutations
