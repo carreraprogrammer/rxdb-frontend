@@ -2,7 +2,7 @@
 
 # RXDB TODO
 
-RXDB TODO es una aplicación de lista de tareas (TODO list) intuitiva y eficiente que integra RXDB con un backend de GraphQL en Rails. Desarrollada con Ionic en el frontend, esta aplicación permite operaciones CRUD directas con RXDB, que a su vez sincroniza con la base de datos de Rails.
+RXDB TODO es una aplicación de lista de tareas (TODO list) offlinefirst que integra RXDB con un backend de GraphQL en Rails. Desarrollada con Ionic en el frontend, esta aplicación permite operaciones CRUD directas con RXDB, que a su vez sincroniza con la base de datos de Rails.
 
 Este proyecto se concibió como un piloto para probar un concepto, sirviendo como un punto de referencia y aprendizaje para el desarrollo de aplicaciones más complejas en el futuro. El presente README proporciona una guía detallada sobre cómo se maneja la sincronización entre RXDB y Rails, asegurando una comprensión clara de su funcionalidad y arquitectura.
 
