@@ -45,7 +45,7 @@ El backend del proyecto se puede encontrar en el siguiente repositorio: [RXDB Ba
 
  - **Sincronización con RXDB**: La aplicación utiliza RXDB para realizar operaciones CRUD en la lista de tareas, sincronizándose con el backend de Rails.
  - **Operación de Pull**: Mediante GraphQL, la aplicación implementa una operación de pull para sincronizar los datos desde el backend de Rails hacia RXDB.
- - **Operación de Push**: Similarmente, se implementa una operación de push para enviar cambios desde RXDB al backend de Rails.
+ - **Operación de Push**: Se implementa una operación de push para enviar cambios desde RXDB al backend de Rails.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
