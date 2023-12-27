@@ -6,8 +6,6 @@ import {
   IonCheckbox
 } from '@ionic/react';
 import { useDb } from './dbContext';
-import { v4 as uuidv4 } from 'uuid';
-import { GraphQLReplicator } from '../db/initializeDb';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -23,11 +21,20 @@ const Tasks = () => {
     }
   };
 
+  // Obtener el próximo ID para una nueva tarea
+  const getNextTaskId = () => {
+    if (tasks.length === 0) {
+      return 0;
+    }
+    const maxId = tasks.reduce((max, task) => Math.max(max, parseInt(task.id)), 0);
+    return maxId + 1;
+  };
+
   // Agregar una nueva tarea
   const addTask = async () => {
     if (newTask.trim()) {
       await db.todos.insert({
-        id: uuidv4(),
+        id: getNextTaskId().toString(),
         text: newTask,
         isCompleted: false,
         createdAt: new Date().toISOString(),
@@ -60,7 +67,8 @@ const Tasks = () => {
     const taskToUpdate = await db.todos.findOne(task.id).exec();
     if (taskToUpdate) {
       await taskToUpdate.update({
-        $set: { isCompleted: !task.isCompleted }
+        $set: { isCompleted: !task.isCompleted },
+        updatedAt: new Date().toISOString()
       });
       loadTasks();
     }

@@ -62,8 +62,36 @@ const pullQueryBuilder = (checkpoint, limit) => {
   };
 };
 
+const pushQueryBuilder = (rows) => {
+  const query = `
+  mutation PushTodo($input: PushTodoInput!) {
+    pushTodo(input: $input) {
+      todos {
+        id
+        text
+        isCompleted
+        createdAt
+        updatedAt
+        deleted
+      }
+    }
+  }
+  `;
+
+  const variables = {
+      input: {
+          writeRows: rows
+      }
+  };
+
+  return {
+      query,
+      operationName: 'PushTodo',
+      variables
+  };
+};
+
 const syncURL = 'http://localhost:3000/graphql';
-const batchSize = 50;
 
 export class GraphQLReplicator {
   private db;
@@ -91,6 +119,10 @@ export class GraphQLReplicator {
       pull: {
         queryBuilder: pullQueryBuilder,
         batchSize: 50,
+      },
+      push: {
+        queryBuilder: pushQueryBuilder,
+        batchSize: 5,
       },
       deletedField: 'deleted',
       live: false,
