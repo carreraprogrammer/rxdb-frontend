@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {GraphQLReplicator, createDb } from '../db/initializeDb';
+import { GraphQLReplicator, createDb } from '../db/initializeDb';
 
 const DbContext = createContext(null);
 
@@ -7,24 +7,21 @@ export const useDb = () => useContext(DbContext);
 
 export const DbProvider = ({ children }) => {
   const [db, setDb] = useState(null);
-  const [replicator, setReplicator] = useState(false);
+  const [isReplicating, setIsReplicating] = useState(true);
 
   useEffect(() => {
       const initDb = async () => {
         const db = await createDb();
         const replicator = new GraphQLReplicator(db);
-        replicator.restart().then(() => {
-          setDb(db);
-          setTimeout(() => {
-            setReplicator(true);
-          }, 1000)
-        });
+        await replicator.restart();
+        setDb(db);
+        setIsReplicating(false);
       }
 
       initDb();
-  }, [replicator]);
+  }, []); // Dependencias vacías para que se ejecute solo en el montaje
 
-  if (!replicator) {
+  if (isReplicating) {
     return <div>Replicando base de datos...</div>;
   }
 
