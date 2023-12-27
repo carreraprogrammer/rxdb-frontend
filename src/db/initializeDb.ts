@@ -129,10 +129,10 @@ export class GraphQLReplicator {
       replicationIdentifier: 'my-replication'
     });
   
-    replicationState.error$.subscribe(err => {
-      console.error('replication error:');
-      console.dir(err);
-    });
+    // replicationState.error$.subscribe(err => {
+    //   console.error('replication error:');
+    //   console.dir(err);
+    // });
   
     console.log('Replication was successfully setup');
   
