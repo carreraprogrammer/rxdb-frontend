@@ -62,32 +62,32 @@ const pullQueryBuilder = (checkpoint, limit) => {
   };
 };
 
+// [{masterTodo => {}, newTodo => {}} ]
+
 const pushQueryBuilder = (rows) => {
   const query = `
   mutation PushTodo($input: PushTodoInput!) {
     pushTodo(input: $input) {
-      todos {
-        id
-        text
-        isCompleted
-        createdAt
-        updatedAt
-        deleted
-      }
+      id
+      text
+      isCompleted
+      createdAt
+      updatedAt
+      deleted
     }
   }
   `;
 
   const variables = {
-      input: {
-          writeRows: rows
-      }
+    input: {
+      writeRows: rows
+    }
   };
 
   return {
-      query,
-      operationName: 'PushTodo',
-      variables
+    query,
+    operationName: 'PushTodo',
+    variables
   };
 };
 
@@ -129,10 +129,10 @@ export class GraphQLReplicator {
       replicationIdentifier: 'my-replication'
     });
   
-    // replicationState.error$.subscribe(err => {
-    //   console.error('replication error:');
-    //   console.dir(err);
-    // });
+    replicationState.error$.subscribe(err => {
+      console.error('replication error:');
+      console.dir(err);
+    });
   
     console.log('Replication was successfully setup');
   
