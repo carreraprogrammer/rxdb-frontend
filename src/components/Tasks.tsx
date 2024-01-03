@@ -59,11 +59,13 @@ const Tasks = () => {
   const toggleCompleteTask = async (task: any) => {
     const taskToToggle = await db.todos.findOne(task.id).exec();
     if (taskToToggle) {
+      console.log('Changing task: ' + taskToToggle.id + ' ' + taskToToggle.isCompleted);
       await taskToToggle.update({
         $set: {
           isCompleted: !taskToToggle.isCompleted
         }
       });
+      console.log('Changed task: ' + taskToToggle.id + ' ' + taskToToggle.isCompleted);
     }
   };
 
